@@ -1,0 +1,18 @@
+METHOD
+	POST
+HEADERS
+	Accept-Charset: utf8
+	Content-Type: application/json
+URL
+	#http://example.com/?param1=A&param2=B
+	https://example.com/api
+REQUEST_STRING
+{
+	"jsonrpc": "2.0",
+	"id": "666",
+	"method": "user.login",
+	"params": {
+		"user": "user@server.com",
+		"password": "666666"
+	}
+}
