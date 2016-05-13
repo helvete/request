@@ -72,5 +72,6 @@ Bye!
 ## Possible improvements ##
 
 * Separating the library and the script parts
-* Allow the script to run in less verbose mode returning exactly only the response to be able to redirect the output
+* Allow the script to run in less verbose mode returning exactly only the response to be able to redirect the output (without pretty print json, etc)
 * Learn it to handle more HTTP methods than GET and POST
+* Make possible to auto-calculate request string size and include Content-length headerd
