@@ -140,6 +140,8 @@ class ApiRequester {
 	/**
 	 * Handle request error
 	 *
+	 * @param  resource	$curlHandle
+	 * @return string
 	 */
 	private function _handleError($curlHandle) {
 
