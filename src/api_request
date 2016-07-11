@@ -180,6 +180,12 @@ $iterate = array(
 	'REQUEST' => $r->getReqStr(),
 	'RESPONSE' => $r->request()
 );
+
+if (isset($argv[2]) && $agv[2] === '--exact-return') {
+	echo $iterate['RESPONSE'];
+	exit 0;
+}
+
 $embed = '';
 foreach ($iterate as $name => $data) {
 	echo "{$embed}{$name}:\n";
