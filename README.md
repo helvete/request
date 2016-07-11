@@ -69,9 +69,14 @@ RESPONSE:
 Bye!
 ```
 
+Note: There is also a possibility for the script to run in less verbose mode returning exactly only the response string to be able to redirect the output. To do so, just add --exact-return parameter.
+
+```
+./src/api_request /home/user/path/to/options/file --exact-return
+```
+
 ## Possible improvements ##
 
 * Separating the library and the script parts
-* Allow the script to run in less verbose mode returning exactly only the response to be able to redirect the output (without pretty print json, etc)
 * Learn it to handle more HTTP methods than GET and POST
-* Make possible to auto-calculate request string size and include Content-length headerd
+* Make possible to auto-calculate request string size and include Content-length header
