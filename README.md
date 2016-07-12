@@ -80,3 +80,4 @@ Note: There is also a possibility for the script to run in less verbose mode ret
 * Separating the library and the script parts
 * Learn it to handle more HTTP methods than GET and POST
 * Make possible to auto-calculate request string size and include Content-length header
+* Learn the library process non-json strings
