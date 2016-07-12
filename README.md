@@ -5,6 +5,8 @@ request is a simple PHP library/script which allows requesting remote APIs.
 
 Its key feature is, that connection settings lie in an easily editable file, that is supplied as the only execution parameter. It's been done this way to allow easy API scope changes while preserving previously stored data.
 
+Initially prepared for JSON string interchange, but adapted to be able to process non-json strings, just supply --non-json runtime parameter. --non-json and --exact-return parameters can be combined.
+
 ## Options file structure ##
 Use an example options file as a sample.
 
@@ -72,7 +74,7 @@ Bye!
 Note: There is also a possibility for the script to run in less verbose mode returning exactly only the response string to be able to redirect the output. To do so, just add --exact-return parameter.
 
 ```
-./src/api_request /home/user/path/to/options/file --exact-return
+./src/api_request /home/user/path/to/options/file --exact-return --non-json
 ```
 
 ## Possible improvements ##
@@ -80,4 +82,3 @@ Note: There is also a possibility for the script to run in less verbose mode ret
 * Separating the library and the script parts
 * Learn it to handle more HTTP methods than GET and POST
 * Make possible to auto-calculate request string size and include Content-length header
-* Learn the library process non-json strings

@@ -181,20 +181,36 @@ $iterate = array(
 	'RESPONSE' => $r->request()
 );
 
-if (isset($argv[2]) && $agv[2] === '--exact-return') {
+$exact = false;
+$noJson = false;
+for ($i = 1; $i < count($argv); $i++) {
+	switch ($argv[$i]) {
+	case '--exact-return':
+		$exact = true;
+		break;
+	case '--non-json':
+		$noJson = true;
+		break;
+	}
+}
+if ($exact) {
 	echo $iterate['RESPONSE'];
-	exit 0;
+	exit(0);
 }
 
 $embed = '';
 foreach ($iterate as $name => $data) {
 	echo "{$embed}{$name}:\n";
-	print_r(
-		json_encode(
-			json_decode($data, true),
-			JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-		)
-	);
+	if ($noJson) {
+		echo "{$data}\n";
+	} else {
+		print_r(
+			json_encode(
+				json_decode($data, true),
+				JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+			)
+		);
+	}
 	$embed = "\n";
 }
 echo "\nBye!\n";
