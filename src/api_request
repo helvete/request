@@ -202,7 +202,7 @@ $embed = '';
 foreach ($iterate as $name => $data) {
 	echo "{$embed}{$name}:\n";
 	if ($noJson) {
-		echo "{$data}\n";
+		echo $data;
 	} else {
 		print_r(
 			json_encode(
