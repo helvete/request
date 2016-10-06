@@ -56,7 +56,7 @@ REQUEST:
 		"password": "666666"
 	}
 }
-RESPONSE:
+RESPONSE [401]:
 {
 	"jsonrpc": "2.0",
 	"error": {
