@@ -129,11 +129,12 @@ class ApiRequester {
 			throw new \Exception('NIY');
 		}
 		$response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if ($response === false) {
 			return $this->_handleError($ch);
 		}
 
-		return $response;
+		return array($httpCode => $response);
 	}
 
 
@@ -176,9 +177,12 @@ if (count($argv) < 2) {
 }
 
 $r = new ApiRequester($argv[1]);
+$request = $r->request();
+$httpCode = key($request);
+$response = current($request);
 $iterate = array(
 	'REQUEST' => $r->getReqStr(),
-	'RESPONSE' => $r->request()
+	"RESPONSE [{$httpCode}]" => $response,
 );
 
 $exact = false;
