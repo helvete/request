@@ -180,9 +180,10 @@ $r = new ApiRequester($argv[1]);
 $request = $r->request();
 $httpCode = key($request);
 $response = current($request);
+$key = "RESPONSE [{$httpCode}]";
 $iterate = array(
 	'REQUEST' => $r->getReqStr(),
-	"RESPONSE [{$httpCode}]" => $response,
+	$key => $response,
 );
 
 $exact = false;
@@ -198,7 +199,7 @@ for ($i = 1; $i < count($argv); $i++) {
 	}
 }
 if ($exact) {
-	echo $iterate['RESPONSE'];
+	echo $iterate[$key];
 	exit(0);
 }
 
