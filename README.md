@@ -37,7 +37,7 @@ REQUEST_STRING
 
 Just run
 ```
-./src/rq /home/user/path/to/options/file
+./src/rq /home/user/path/to/options/file [--non-json] [--exact-return]
 ```
 from within the repository directory
 
