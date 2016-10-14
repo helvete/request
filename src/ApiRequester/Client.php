@@ -1,9 +1,11 @@
-#!/usr/bin/env php
 <?php
+
+namespace helvete\ApiRequester;
+
 /**
  * Class for requesting remote APIs
  */
-class ApiRequester {
+class Client {
 
 	/**
 	 * Request method
@@ -13,12 +15,11 @@ class ApiRequester {
 	/**
 	 * Request headers
 	 */
-
 	protected $_headers = array();
+
 	/**
 	 * Request URL
 	 */
-
 	protected $_url;
 
 	/**
@@ -170,52 +171,3 @@ class ApiRequester {
 		return $this->_requestString;
 	}
 }
-
-if (count($argv) < 2) {
-	echo "Missing mandatory parameter: location of options file.\n";
-	exit(2);
-}
-
-$r = new ApiRequester($argv[1]);
-$request = $r->request();
-$httpCode = key($request);
-$response = current($request);
-$key = "RESPONSE [{$httpCode}]";
-$iterate = array(
-	'REQUEST' => $r->getReqStr(),
-	$key => $response,
-);
-
-$exact = false;
-$noJson = false;
-for ($i = 1; $i < count($argv); $i++) {
-	switch ($argv[$i]) {
-	case '--exact-return':
-		$exact = true;
-		break;
-	case '--non-json':
-		$noJson = true;
-		break;
-	}
-}
-if ($exact) {
-	echo $iterate[$key];
-	exit(0);
-}
-
-$embed = '';
-foreach ($iterate as $name => $data) {
-	echo "{$embed}{$name}:\n";
-	if ($noJson) {
-		echo $data;
-	} else {
-		print_r(
-			json_encode(
-				json_decode($data, true),
-				JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-			)
-		);
-	}
-	$embed = "\n";
-}
-echo "\nBye!\n";
