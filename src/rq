@@ -1,5 +1,8 @@
 #!/usr/bin/env php
 <?php
+
+define('SCRIPT_VERSION', '0.21');
+
 $time = -microtime(true);
 include __DIR__ . "/ApiRequester/Client.php";
 
