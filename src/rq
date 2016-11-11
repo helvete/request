@@ -50,4 +50,4 @@ foreach ($iterate as $name => $data) {
 	$embed = "\n";
 }
 $time = number_format((microtime() - $time) / 1000, 2);
-echo "\nBye! (Runtime: {$time})\n";
+echo "\nBye! (Runtime: {$time}s)\n";
