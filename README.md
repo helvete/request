@@ -30,7 +30,8 @@ REQUEST_STRING
 	}
 }
 ```
-**METHOD** and **URL** accept only the first non-comment entry, while
+**METHOD** and **URL** accept only the last non-comment entry, while
+
 **HEADERS** and **REQUEST_STRING** accept unlimited count of lines
 
 ## Usage ##
@@ -45,7 +46,7 @@ Parameters:
         Script will not expect JSON response payload and will not attempt to
         format it on standard out
     -x|--exact-response
-        Response will not be formated. Only the actual response is printed.
+        Response will not be formatted. Only the actual response is printed.
         Useful for commands chaining
     <options-file>
         Provided location of options file. See ./post-request-example for clues
