@@ -5,7 +5,7 @@ request is a simple PHP library with script that allow requesting remote APIs.
 
 Its key feature is, that connection settings lie in an easily editable file, that is supplied as the first execution parameter. It's been done this way to allow easy API scope changes while preserving previously stored data.
 
-Initially prepared for JSON string interchange, but adapted to be able to process non-json strings, just supply --non-json runtime parameter. --non-json and --exact-return parameters can be combined.
+Initially prepared for JSON string interchange, but adapted to be able to process non-json strings.
 
 ## Options file structure ##
 Use an example options file as a sample.
@@ -35,15 +35,25 @@ REQUEST_STRING
 
 ## Usage ##
 
-Just run
-```
-./src/rq /home/user/path/to/options/file [--non-json] [--exact-return]
-```
-from within the repository directory
+Usage:
+    ./rq [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
+Parameters:
+    -h|--help
+        Print this help
+    -n|--non-json
+        Script will not expect JSON response payload and will not attempt to
+        format it on standard out
+    -x|--exact-response
+        Response will not be formated. Only the actual response is printed.
+        Useful for commands chaining
+    <options-file>
+        Provided location of options file. See ./post-request-example for clues
+Note:
+    Short versions of -x and -n parameters can be combined like -xn or -nx.
 
 ## Data visualisation ##
 
-Example request with its response will look similarly:
+Example request with its response will look similarly (without -x and -n params):
 
 ```
 REQUEST:
@@ -68,13 +78,7 @@ RESPONSE [401]:
 	},
 	"id": "666"
 }
-Bye!
-```
-
-Note: There is also a possibility for the script to run in less verbose mode returning exactly only the response string to be able to redirect the output. To do so, just add --exact-return parameter.
-
-```
-./src/rq /home/user/path/to/options/file --exact-return --non-json
+Bye! (Request duration: 0.26s)
 ```
 
 ## Possible improvements ##

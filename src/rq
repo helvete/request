@@ -67,7 +67,7 @@ function _processParams() {
     for ($i = 1; $i < count($argv); $i++) {
 	    switch ($argv[$i]) {
 	    case '-x':
-	    case '--exact-return':
+	    case '--exact-response':
 		    $provided[OPT_X] = true;
 		    break;
 	    case '-nx':
@@ -109,14 +109,14 @@ Request remote APIs utility.
     Library version: $libVer
     Script version: $scriptVer
 Usage:
-    $self [-h|--help] [-n|--non-json] [-x|--exact-return] <options file>
+    $self [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
 Parameters:
     -h|--help
         Print this help
     -n|--non-json
         Script will not expect JSON response payload and will not attempt to
         format it on standard out
-    -x|--exact-return
+    -x|--exact-response
         Response will not be formated. Only the actual response is printed.
         Useful for commands chaining
     <options-file>
