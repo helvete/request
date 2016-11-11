@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+$time = -microtime();
 include __DIR__ . "/ApiRequester/Client.php";
 
 if (count($argv) < 2) {
@@ -48,4 +49,5 @@ foreach ($iterate as $name => $data) {
 	}
 	$embed = "\n";
 }
-echo "\nBye!\n";
+$time = number_format((microtime() - $time) / 1000, 2);
+echo "\nBye! (Runtime: {$time})\n";
