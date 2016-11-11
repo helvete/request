@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.19';
+	const LIB_VERSION = '0.20';
 
 	/**
 	 * Request method
@@ -156,11 +156,13 @@ class Client {
 				'error nr' => curl_errno($curlHandle),
 			);
 		}
-		return json_encode(array(
+		$json = json_encode(array(
 			'result' => 'FAILURE',
 			'url' => $this->_url,
 			'Code' => curl_getinfo($curlHandle, CURLINFO_HTTP_CODE),
 		) + $curlError);
+
+		return array(666 => $json);
 	}
 
 
