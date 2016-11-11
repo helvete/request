@@ -1,17 +1,22 @@
 #!/usr/bin/env php
 <?php
+$time = -microtime(true);
 
 define('SCRIPT_VERSION', '0.21');
+define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
+define('OPT_X', 'x');
+define('OPT_N', 'n');
+define('OPT_H', 'h');
 
-$time = -microtime(true);
 include __DIR__ . "/ApiRequester/Client.php";
 
-if (count($argv) < 2) {
-	echo "Missing mandatory parameter: location of options file.\n";
-	exit(2);
+$options = _processParams();
+if ($options[OPT_H]) {
+    _printHelp();
+    exit(0);
 }
 
-$r = new helvete\ApiRequester\Client($argv[1]);
+$r = new helvete\ApiRequester\Client($options[FILE]);
 $request = $r->request();
 $httpCode = key($request);
 $response = current($request);
@@ -21,18 +26,7 @@ $iterate = array(
 	$key => $response,
 );
 
-$exact = $noJson = false;
-for ($i = 1; $i < count($argv); $i++) {
-	switch ($argv[$i]) {
-	case '--exact-return':
-		$exact = true;
-		break;
-	case '--non-json':
-		$noJson = true;
-		break;
-	}
-}
-if ($exact) {
+if ($options[OPT_X]) {
 	echo $iterate[$key];
 	exit(0);
 }
@@ -40,7 +34,7 @@ if ($exact) {
 $embed = '';
 foreach ($iterate as $name => $data) {
 	echo "{$embed}{$name}:\n";
-	if ($noJson) {
+	if ($options[OPT_N]) {
 		echo $data;
 	} else {
 		print_r(
@@ -55,3 +49,80 @@ foreach ($iterate as $name => $data) {
 $time += microtime(true);
 $time = number_format($time, 2);
 echo "\nBye! (Request duration: {$time}s)\n";
+
+/******************************************************************************/
+
+/**
+ * Proces runtime parameters and return them in a nicely readable way
+ *
+ * @return array
+ */
+function _processParams() {
+    global $argv;
+    $provided = array(
+        OPT_X => false,
+        OPT_N => false,
+        OPT_H => false,
+    );
+    for ($i = 1; $i < count($argv); $i++) {
+	    switch ($argv[$i]) {
+	    case '-x':
+	    case '--exact-return':
+		    $provided[OPT_X] = true;
+		    break;
+	    case '-nx':
+	    case '-xn':
+		    $provided[OPT_X] = true;
+	    case '-n':
+	    case '--non-json':
+		    $provided[OPT_N] = true;
+		    break;
+	    case '-h':
+	    case '--help':
+		    $provided[OPT_H] = true;
+		    break;
+        default:
+            if (!file_exists($argv[$i])) {
+	            echo "Unknown runtime param {$argv[$i]}\n";
+	            exit(2);
+            }
+            $provided[FILE] = $argv[$i];
+	    }
+    }
+
+    return $provided;
+}
+
+
+/**
+ * Print help message
+ *
+ * @return void
+ */
+function _printHelp() {
+    global $argv;
+    $scriptVer = SCRIPT_VERSION;
+    $libVer = \helvete\ApiRequester\Client::LIB_VERSION;
+    $self = $argv[0];
+    echo <<<TXT
+Request remote APIs utility.
+    Library version: $libVer
+    Script version: $scriptVer
+Usage:
+    $self [-h|--help] [-n|--non-json] [-x|--exact-return] <options file>
+Parameters:
+    -h|--help
+        Print this help
+    -n|--non-json
+        Script will not expect JSON response payload and will not attempt to
+        format it on standard out
+    -x|--exact-return
+        Response will not be formated. Only the actual response is printed.
+        Useful for commands chaining
+    <options-file>
+        Provided location of options file. See ./post-request-example for clues
+Note:
+    Short versions of -x and -n parameters can be combined like -xn or -nx.
+
+TXT;
+}
