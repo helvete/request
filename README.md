@@ -35,6 +35,7 @@ REQUEST_STRING
 
 ## Usage ##
 
+```
 Usage:
     ./rq [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
 Parameters:
@@ -50,6 +51,7 @@ Parameters:
         Provided location of options file. See ./post-request-example for clues
 Note:
     Short versions of -x and -n parameters can be combined like -xn or -nx.
+```
 
 ## Data visualisation ##
 
