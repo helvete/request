@@ -38,20 +38,20 @@ REQUEST_STRING
 
 ```
 Usage:
-    ./rq [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
+	./rq [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
 Parameters:
-    -h|--help
-        Print this help
-    -n|--non-json
-        Script will not expect JSON response payload and will not attempt to
-        format it on standard out
-    -x|--exact-response
-        Response will not be formatted. Only the actual response is printed.
-        Useful for commands chaining
-    <options-file>
-        Provided location of options file. See ./post-request-example for clues
+	-h|--help
+		Print this help
+	-n|--non-json
+		Script will not expect JSON response payload and will not attempt to
+		format it on standard out
+	-x|--exact-response
+		Response will not be formatted. Only the actual response is printed.
+		Useful for commands chaining
+	<options-file>
+		Provided location of options file. See ./post-request-example for clues
 Note:
-    Short versions of -x and -n parameters can be combined like -xn or -nx.
+	Short versions of -x and -n parameters can be combined like -xn or -nx.
 ```
 
 ## Data visualisation ##

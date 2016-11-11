@@ -12,8 +12,8 @@ include __DIR__ . "/ApiRequester/Client.php";
 
 $options = _processParams();
 if ($options[OPT_H]) {
-    _printHelp();
-    exit(0);
+	_printHelp();
+	exit(0);
 }
 
 $r = new helvete\ApiRequester\Client($options[FILE]);
@@ -58,39 +58,39 @@ echo "\nBye! (Request duration: {$time}s)\n";
  * @return array
  */
 function _processParams() {
-    global $argv;
-    $provided = array(
-        OPT_X => false,
-        OPT_N => false,
-        OPT_H => false,
-    );
-    for ($i = 1; $i < count($argv); $i++) {
-	    switch ($argv[$i]) {
-	    case '-x':
-	    case '--exact-response':
-		    $provided[OPT_X] = true;
-		    break;
-	    case '-nx':
-	    case '-xn':
-		    $provided[OPT_X] = true;
-	    case '-n':
-	    case '--non-json':
-		    $provided[OPT_N] = true;
-		    break;
-	    case '-h':
-	    case '--help':
-		    $provided[OPT_H] = true;
-		    break;
-        default:
-            if (!file_exists($argv[$i])) {
-	            echo "Unknown runtime param {$argv[$i]}\n";
-	            exit(2);
-            }
-            $provided[FILE] = $argv[$i];
-	    }
-    }
+	global $argv;
+	$provided = array(
+		OPT_X => false,
+		OPT_N => false,
+		OPT_H => false,
+	);
+	for ($i = 1; $i < count($argv); $i++) {
+		switch ($argv[$i]) {
+		case '-x':
+		case '--exact-response':
+			$provided[OPT_X] = true;
+			break;
+		case '-nx':
+		case '-xn':
+			$provided[OPT_X] = true;
+		case '-n':
+		case '--non-json':
+			$provided[OPT_N] = true;
+			break;
+		case '-h':
+		case '--help':
+			$provided[OPT_H] = true;
+			break;
+		default:
+			if (!file_exists($argv[$i])) {
+				echo "Unknown runtime param {$argv[$i]}\n";
+				exit(2);
+			}
+			$provided[FILE] = $argv[$i];
+		}
+	}
 
-    return $provided;
+	return $provided;
 }
 
 
@@ -100,29 +100,29 @@ function _processParams() {
  * @return void
  */
 function _printHelp() {
-    global $argv;
-    $scriptVer = SCRIPT_VERSION;
-    $libVer = \helvete\ApiRequester\Client::LIB_VERSION;
-    $self = $argv[0];
-    echo <<<TXT
+	global $argv;
+	$scriptVer = SCRIPT_VERSION;
+	$libVer = \helvete\ApiRequester\Client::LIB_VERSION;
+	$self = $argv[0];
+	echo <<<TXT
 Request remote APIs utility.
-    Library version: $libVer
-    Script version: $scriptVer
+	Library version: $libVer
+	Script version: $scriptVer
 Usage:
-    $self [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
+	$self [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
 Parameters:
-    -h|--help
-        Print this help
-    -n|--non-json
-        Script will not expect JSON response payload and will not attempt to
-        format it on standard out
-    -x|--exact-response
-        Response will not be formated. Only the actual response is printed.
-        Useful for commands chaining
-    <options-file>
-        Provided location of options file. See ./post-request-example for clues
+	-h|--help
+		Print this help
+	-n|--non-json
+		Script will not expect JSON response payload and will not attempt to
+		format it on standard out
+	-x|--exact-response
+		Response will not be formated. Only the actual response is printed.
+		Useful for commands chaining
+	<options-file>
+		Provided location of options file. See ./post-request-example for clues
 Note:
-    Short versions of -x and -n parameters can be combined like -xn or -nx.
+	Short versions of -x and -n parameters can be combined like -xn or -nx.
 
 TXT;
 }
