@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.20';
+	const LIB_VERSION = '0.21';
 
 	/**
 	 * Request method
