@@ -128,7 +128,7 @@ class Client {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
 		case "PUT":
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
 		default:
