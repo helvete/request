@@ -127,6 +127,10 @@ class Client {
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
+		case "PUT":
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
+			break;
 		default:
 			// other methods not implemented yet, sorry
 			throw new \Exception('NIY');

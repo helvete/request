@@ -86,5 +86,5 @@ Bye! (Request duration: 0.26s)
 
 ## Possible improvements ##
 
-* Learn it to handle more HTTP methods than GET and POST
+* Learn it to handle more HTTP methods than GET, POST and PUT
 * Make possible to auto-calculate request string size and include Content-length header
