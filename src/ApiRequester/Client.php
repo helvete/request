@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.22';
+	const LIB_VERSION = '0.23';
 
 	/**
 	 * Request method
@@ -129,7 +129,8 @@ class Client {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
 		case "PUT":
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+		case "DELETE":
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
 		default:
