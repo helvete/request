@@ -38,7 +38,8 @@ REQUEST_STRING
 
 ```
 Usage:
-	./rq [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
+	./rq [-h|--help] [-n|--non-json] [-x|--exact-response]
+		[-x|--no-follow-redirect] <options file>
 Parameters:
 	-h|--help
 		Print this help
@@ -48,6 +49,9 @@ Parameters:
 	-x|--exact-response
 		Response will not be formatted. Only the actual response is printed.
 		Useful for commands chaining
+	-l|--no-follow-redirects
+		Default behaviour is to follow any location redirects. Provide this flag
+		in order for the client not to follow redirects
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:
@@ -86,5 +90,5 @@ Bye! (Request duration: 0.26s)
 
 ## Possible improvements ##
 
-* Learn it to handle more HTTP methods than GET, POST and PUT
 * Make possible to auto-calculate request string size and include Content-length header
+* Better getopt handling
