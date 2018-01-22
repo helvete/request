@@ -2,11 +2,12 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.24');
+define('SCRIPT_VERSION', '0.25');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
 define('OPT_H', 'h');
+define('OPT_L', 'l');
 
 include __DIR__ . "/ApiRequester/Client.php";
 
@@ -17,7 +18,7 @@ if ($options[OPT_H]) {
 }
 
 $r = new helvete\ApiRequester\Client($options[FILE]);
-$request = $r->request();
+$request = $r->setFollowRedirect(!$options[OPT_L])->request();
 $httpCode = key($request);
 $response = current($request);
 $key = "RESPONSE [{$httpCode}]";
@@ -63,6 +64,7 @@ function _processParams() {
 		OPT_X => false,
 		OPT_N => false,
 		OPT_H => false,
+		OPT_L => false,
 	);
 	for ($i = 1; $i < count($argv); $i++) {
 		switch ($argv[$i]) {
@@ -80,6 +82,10 @@ function _processParams() {
 		case '-h':
 		case '--help':
 			$provided[OPT_H] = true;
+			break;
+		case '-l':
+		case '--no-follow-redirect':
+			$provided[OPT_L] = true;
 			break;
 		default:
 			if (!file_exists($argv[$i])) {
@@ -109,7 +115,8 @@ Request remote APIs utility.
 	Library version: $libVer
 	Script version: $scriptVer
 Usage:
-	$self [-h|--help] [-n|--non-json] [-x|--exact-response] <options file>
+	$self [-h|--help] [-n|--non-json] [-x|--exact-response]
+		[-x|--no-follow-redirect] <options file>
 Parameters:
 	-h|--help
 		Print this help
@@ -119,6 +126,9 @@ Parameters:
 	-x|--exact-response
 		Response will not be formated. Only the actual response is printed.
 		Useful for commands chaining
+	-l|--no-follow-redirects
+		Default behaviour is to follow any location redirects. Provide this flag
+		in order for the client not to follow redirects
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:

@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.23';
+	const LIB_VERSION = '0.24';
 
 	/**
 	 * Request method
@@ -25,9 +25,14 @@ class Client {
 	protected $_url;
 
 	/**
-	 * Request URL
+	 * Request string
 	 */
 	protected $_requestString = '';
+
+	/**
+	 * Follow redirects flag
+	 */
+	protected $_followRedirect = true;
 
 	/**
 	 * Class construct
@@ -120,6 +125,7 @@ class Client {
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $this->_headers);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->_followRedirect);
 
 		switch ($this->_method) {
 		case "GET":
@@ -179,5 +185,17 @@ class Client {
 	 */
 	public function getReqStr() {
 		return $this->_requestString;
+	}
+
+
+	/**
+	 * Change redirect flag status
+	 *
+	 * @param  bool	$followRedirect
+	 * @return void
+	 */
+	public function setFollowRedirect($followRedirect) {
+		$this->_followRedirect = (bool)$followRedirect;
+		return $this;
 	}
 }
