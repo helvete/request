@@ -39,7 +39,7 @@ REQUEST_STRING
 ```
 Usage:
 	./rq [-h|--help] [-n|--non-json] [-x|--exact-response]
-		[-x|--no-follow-redirect] <options file>
+		[-l|--no-follow-redirect] <options file>
 Parameters:
 	-h|--help
 		Print this help
