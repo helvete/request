@@ -94,3 +94,4 @@ Bye! (Request duration: 0.26s)
 * Better getopt handling
 * Additional HTTP methods
 * HTTP Response codes differentiated by colours
+* Optional payload trimming(JSON)
