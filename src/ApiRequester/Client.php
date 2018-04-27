@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.24';
+	const LIB_VERSION = '0.25';
 
 	/**
 	 * Request method
@@ -185,6 +185,16 @@ class Client {
 	 */
 	public function getReqStr() {
 		return $this->_requestString;
+	}
+
+
+	/**
+	 * Get request url for logging purposes
+	 *
+	 * @return string
+	 */
+	public function getUrl() {
+		return $this->_url;
 	}
 
 
