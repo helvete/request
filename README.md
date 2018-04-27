@@ -63,7 +63,7 @@ Note:
 Example request with its response will look similarly (without -x and -n params):
 
 ```
-REQUEST:
+REQUEST [https://example.com/api]:
 {
 	"jsonrpc": "2.0",
 	"id": "666",
@@ -92,3 +92,5 @@ Bye! (Request duration: 0.26s)
 
 * Make possible to auto-calculate request string size and include Content-length header
 * Better getopt handling
+* Additional HTTP methods
+* HTTP Response codes differentiated by colours
