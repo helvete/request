@@ -18,6 +18,7 @@ HEADERS
 	Content-Type: application/json
 URL
 	#http://example.com/?param1=A&param2=B
+
 	https://example.com/api
 REQUEST_STRING
 {
@@ -30,7 +31,7 @@ REQUEST_STRING
 	}
 }
 ```
-**METHOD** and **URL** accept only the last non-comment entry, while
+**METHOD** and **URL** accept only the last non-comment (non-empty) entry, while
 
 **HEADERS** and **REQUEST_STRING** accept unlimited count of lines
 

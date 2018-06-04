@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.25';
+	const LIB_VERSION = '0.26';
 
 	/**
 	 * Request method
@@ -76,8 +76,8 @@ class Client {
 			// trim lines in file to allow indentation
 			$key = trim($line);
 
-			// allow hash comments within options file
-			if (substr($key, 0, 1) === '#') {
+			// allow hash comments within options file, skip empty lines
+			if (substr($key, 0, 1) === '#' || !strlen($key)) {
 				continue;
 			}
 			// process keys in options file
