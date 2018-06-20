@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.27');
+define('SCRIPT_VERSION', '0.28');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -21,9 +21,9 @@ $r = new helvete\ApiRequester\Client($options[FILE]);
 $request = $r->setFollowRedirect(!$options[OPT_L])->request();
 $httpCode = key($request);
 $response = current($request);
-$key = "RESPONSE [{$httpCode}]";
+$key = "<-- [{$httpCode}]";
 $iterate = array(
-	"REQUEST [{$r->getUrl()}]" => $r->getReqStr(),
+	"--> {$r->getMethod()} [{$r->getUrl()}]" => $r->getReqStr(),
 	$key => $response,
 );
 
