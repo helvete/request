@@ -38,10 +38,10 @@ foreach ($iterate as $name => $data) {
 	if ($options[OPT_N]) {
 		echo $data;
 	} else {
-        if (empty($data)) {
-            $embed = "";
-            continue;
-        }
+		if (empty($data)) {
+			$embed = "";
+			continue;
+		}
 		print_r(
 			json_encode(
 				json_decode($data, true),

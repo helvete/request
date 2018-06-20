@@ -89,9 +89,9 @@ class Client {
 
 				continue;
 			}
-            if ($processing === 'REQUEST_STRING' && $this->_method === 'GET') {
-                continue;
-            }
+			if ($processing === 'REQUEST_STRING' && $this->_method === 'GET') {
+				continue;
+			}
 			// process data in options file
 			switch ($processing) {
 			case ('HEADERS'):
