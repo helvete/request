@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.26');
+define('SCRIPT_VERSION', '0.27');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -38,6 +38,10 @@ foreach ($iterate as $name => $data) {
 	if ($options[OPT_N]) {
 		echo $data;
 	} else {
+        if (empty($data)) {
+            $embed = "";
+            continue;
+        }
 		print_r(
 			json_encode(
 				json_decode($data, true),

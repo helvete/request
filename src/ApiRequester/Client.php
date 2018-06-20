@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.26';
+	const LIB_VERSION = '0.27';
 
 	/**
 	 * Request method
@@ -89,6 +89,9 @@ class Client {
 
 				continue;
 			}
+            if ($processing === 'REQUEST_STRING' && $this->_method === 'GET') {
+                continue;
+            }
 			// process data in options file
 			switch ($processing) {
 			case ('HEADERS'):
