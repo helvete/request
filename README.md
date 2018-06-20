@@ -64,7 +64,7 @@ Note:
 Example request with its response will look similarly (without -x and -n params):
 
 ```
-REQUEST [https://example.com/api]:
+--> POST [https://example.com/api]:
 {
 	"jsonrpc": "2.0",
 	"id": "666",
@@ -74,7 +74,7 @@ REQUEST [https://example.com/api]:
 		"password": "666666"
 	}
 }
-RESPONSE [401]:
+<-- [401]:
 {
 	"jsonrpc": "2.0",
 	"error": {
