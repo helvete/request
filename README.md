@@ -96,3 +96,4 @@ Bye! (Request duration: 0.26s)
 * Additional HTTP methods
 * HTTP Response codes differentiated by colours
 * Optional payload trimming(JSON)
+* Allow request string to be provided via STDIN
