@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.29');
+define('SCRIPT_VERSION', '0.30');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -39,7 +39,7 @@ foreach ($iterate as $name => $data) {
 		echo $data;
 	} else {
 		if (empty($data)) {
-			$embed = "";
+			$embed = "\"\"\n";
 			continue;
 		}
 		print_r(
@@ -53,7 +53,7 @@ foreach ($iterate as $name => $data) {
 }
 $time += microtime(true);
 $time = number_format($time, 2);
-echo "\nBye! (Request duration: {$time}s)\n";
+echo "${embed}Bye! (Request duration: {$time}s)\n";
 
 /******************************************************************************/
 
