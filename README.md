@@ -97,3 +97,4 @@ Bye! (Request duration: 0.26s)
 * HTTP Response codes differentiated by colours
 * Optional payload trimming(JSON)
 * Allow request string to be provided via STDIN
+* Make possible to define hostname and partial URI independent - ie. to test the same feature at various hosts
