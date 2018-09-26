@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.28';
+	const LIB_VERSION = '0.29';
 
 	/**
 	 * Request method
@@ -100,9 +100,10 @@ class Client {
 			case ('REQUEST_STRING'):
 				$this->_requestString .= "{$line}";
 				break;
-			case ('URL'):
 			case ('METHOD'):
-				$propertyName = "_".strtolower($processing);
+				$key = strtoupper($key);
+			case ('URL'):
+				$propertyName = "_" . strtolower($processing);
 				$this->$propertyName = $key;
 				break;
 			default:
