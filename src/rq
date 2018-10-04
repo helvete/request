@@ -2,12 +2,13 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.30');
+define('SCRIPT_VERSION', '0.31');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
 define('OPT_H', 'h');
 define('OPT_L', 'l');
+define('OPT_A', 'a');
 
 include __DIR__ . "/ApiRequester/Client.php";
 
@@ -17,7 +18,7 @@ if ($options[OPT_H]) {
 	exit(0);
 }
 
-$r = new helvete\ApiRequester\Client($options[FILE]);
+$r = new helvete\ApiRequester\Client($options[FILE], $options[OPT_A]);
 $request = $r->setFollowRedirect(!$options[OPT_L])->request();
 $httpCode = key($request);
 $response = current($request);
@@ -69,6 +70,7 @@ function _processParams() {
 		OPT_N => false,
 		OPT_H => false,
 		OPT_L => false,
+		OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
 	);
 	for ($i = 1; $i < count($argv); $i++) {
 		switch ($argv[$i]) {
@@ -90,6 +92,10 @@ function _processParams() {
 		case '-l':
 		case '--no-follow-redirect':
 			$provided[OPT_L] = true;
+			break;
+		case '-a':
+		case '--no-user-agent':
+			$provided[OPT_A] = null;
 			break;
 		default:
 			if (!file_exists($argv[$i])) {
@@ -120,7 +126,7 @@ Request remote APIs utility.
 	Script version: $scriptVer
 Usage:
 	$self [-h|--help] [-n|--non-json] [-x|--exact-response]
-		[-l|--no-follow-redirect] <options file>
+		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
 Parameters:
 	-h|--help
 		Print this help
@@ -133,6 +139,8 @@ Parameters:
 	-l|--no-follow-redirects
 		Default behaviour is to follow any location redirects. Provide this flag
 		in order for the client not to follow redirects
+	-a|--no-user-agent
+		User-agent is being added by default. Provide this param to omit it
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:

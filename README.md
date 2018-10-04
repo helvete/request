@@ -40,7 +40,7 @@ REQUEST_STRING
 ```
 Usage:
 	./rq [-h|--help] [-n|--non-json] [-x|--exact-response]
-		[-l|--no-follow-redirect] <options file>
+		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
 Parameters:
 	-h|--help
 		Print this help
@@ -53,6 +53,8 @@ Parameters:
 	-l|--no-follow-redirects
 		Default behaviour is to follow any location redirects. Provide this flag
 		in order for the client not to follow redirects
+	-a|--no-user-agent
+		User-agent header is being added by default. Provide this par to omit it
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:

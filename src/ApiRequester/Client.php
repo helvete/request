@@ -7,9 +7,10 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.30';
+	const LIB_VERSION = '0.31';
 
 	const UA_COMP = 'Mozilla/5.0';
+	const UA_DEFAULT = 'DEFAULT';
 
 	/**
 	 * Request method
@@ -39,7 +40,7 @@ class Client {
 	/**
 	 * Class construct
 	 */
-	public function __construct($optionsFile = null) {
+	public function __construct($optionsFile = null, $ua = self::UA_DEFAULT) {
 		if (empty($optionsFile)) {
 			throw new \Exception('Options file name not supplied');
 		}
@@ -47,19 +48,26 @@ class Client {
 			throw new \Exception('Options file does not exist');
 		}
 		$this->_parseOptions($optionsFile);
-		$this->_setUserAgent();
+		$this->setUserAgent($ua);
 	}
 
 
 	/**
 	 * Set user agent header
+	 *  provide self::UA_DEFAULT for a default one
 	 *
+	 * @param  string   $agent
 	 * @return void
 	 */
-	protected function _setUserAgent() {
+	public function setUserAgent($agent = null) {
+		if (is_null($agent)) {
+			return;
+		}
 		$s = '%s (compatible; ApiRequester/%s) github.com/helvete/request';
 		$uaString = sprintf($s, static::UA_COMP, static::LIB_VERSION);
-		$this->_headers[] = "User-Agent: {$uaString}";
+		$this->_headers[] = $agent === static::UA_DEFAULT
+			? "User-Agent: {$uaString}"
+			: $agent;
 	}
 
 
