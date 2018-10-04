@@ -40,14 +40,12 @@ class Client {
 	 * Class construct
 	 */
 	public function __construct($optionsFile = null) {
-
 		if (empty($optionsFile)) {
 			throw new \Exception('Options file name not supplied');
 		}
 		if (!file_exists($optionsFile)) {
 			throw new \Exception('Options file does not exist');
 		}
-
 		$this->_parseOptions($optionsFile);
 		$this->_setUserAgent();
 	}
@@ -138,7 +136,6 @@ class Client {
 	 * @return string
 	 */
 	public function request() {
-
 		$ch = curl_init($this->_url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $this->_headers);
@@ -178,8 +175,7 @@ class Client {
 	 * @param  resource	$curlHandle
 	 * @return string
 	 */
-	private function _handleError($curlHandle) {
-
+	protected function _handleError($curlHandle) {
 		$curlError = array();
 		if (curl_error($curlHandle)) {
 			$curlError = array(
