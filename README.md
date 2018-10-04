@@ -94,9 +94,11 @@ Bye! (Request duration: 0.26s)
 ## Possible improvements ##
 
 * Make possible to auto-calculate request string size and include Content-length header
-* Better getopt handling
+* Better getopt handling!!
 * Additional HTTP methods
 * HTTP Response codes differentiated by colours
 * Optional payload trimming(JSON)
 * Allow request string to be provided via STDIN
 * Make possible to define hostname and partial URI independent - ie. to test the same feature at various hosts
+* Headers-only and headers-anong-body modes (Useful for OPTIONS, debugging, ...)
+* Ability to supply some headers from commandline (auth, user-agent, ...)
