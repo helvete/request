@@ -7,7 +7,9 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.29';
+	const LIB_VERSION = '0.30';
+
+	const UA_COMP = 'Mozilla/5.0';
 
 	/**
 	 * Request method
@@ -47,6 +49,19 @@ class Client {
 		}
 
 		$this->_parseOptions($optionsFile);
+		$this->_setUserAgent();
+	}
+
+
+	/**
+	 * Set user agent header
+	 *
+	 * @return void
+	 */
+	protected function _setUserAgent() {
+		$s = '%s (compatible; ApiRequester/%s) github.com/helvete/request';
+		$uaString = sprintf($s, static::UA_COMP, static::LIB_VERSION);
+		$this->_headers[] = "User-Agent: {$uaString}";
 	}
 
 
