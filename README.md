@@ -1,18 +1,18 @@
 # request
 
 ## Info ##
-request is a simple PHP library with script that allow requesting remote APIs.
+request is a PHP library and a simple script that allow requesting remote APIs.
 
-Its key feature is, that connection settings lie in an easily editable file, that is supplied as the first execution parameter. It's been done this way to allow easy API scope changes while preserving previously stored data.
+Its key feature is, that connection settings lie in an easily editable file, that is provided as the last execution parameter. It's been done this way to allow easy API scope changes while preserving previously stored data (headers, URLs and payloads).
 
-Initially prepared for JSON string interchange, but adapted to be able to process non-json strings.
+JSON-centric by design, able to work w/ anything though
 
 ## Options file structure ##
 Use an example options file as a sample.
 
 ```
 METHOD
-	POST
+	post
 HEADERS
 	Accept-Charset: utf8
 	Content-Type: application/json
@@ -54,7 +54,7 @@ Parameters:
 		Default behaviour is to follow any location redirects. Provide this flag
 		in order for the client not to follow redirects
 	-a|--no-user-agent
-		User-agent header is being added by default. Provide this par to omit it
+		User-agent header is being added by default. Provide this flag to omit it
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:
@@ -91,7 +91,7 @@ Example request with its response will look similarly (without -x and -n params)
 Bye! (Request duration: 0.26s)
 ```
 
-## Possible improvements ##
+## Possible improvements aka TODOs ##
 
 * Make possible to auto-calculate request string size and include Content-length header
 * Better getopt handling!!
@@ -102,3 +102,4 @@ Bye! (Request duration: 0.26s)
 * Make possible to define hostname and partial URI independent - ie. to test the same feature at various hosts
 * Headers-only and headers-anong-body modes (Useful for OPTIONS, debugging, ...)
 * Ability to supply some headers from commandline (auth, user-agent, ...)
+* Add new script that would offer chain calls to various endpoints
