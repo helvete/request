@@ -55,6 +55,8 @@ Parameters:
 		in order for the client not to follow redirects
 	-a|--no-user-agent
 		User-agent header is being added by default. Provide this flag to omit it
+	-p|--response-only
+		Print only response, skip request. Useful for file uploads, etc.
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 Note:
