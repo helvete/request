@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.32');
+define('SCRIPT_VERSION', '0.33');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -52,7 +52,7 @@ foreach ($iterate as $name => $data) {
 		print_r(
 			json_encode(
 				json_decode($data, true),
-				JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+				JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
 			)
 		);
 	}
