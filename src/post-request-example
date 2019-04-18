@@ -1,6 +1,7 @@
 METHOD
 	POST
 HEADERS
+#   syntax-highlight
 	Accept-Charset: utf8
 	Content-Type: application/json
 URL
