@@ -153,7 +153,6 @@ class Client {
 
 		switch ($this->_method) {
 		case "GET":
-		case "OPTIONS":
 			break;
 		case "POST":
 			curl_setopt($ch, CURLOPT_POST, true);
@@ -161,8 +160,9 @@ class Client {
 			break;
 		case "PUT":
 		case "DELETE":
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
+		case "OPTIONS":
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			break;
 		default:
 			// other methods not implemented yet, sorry
