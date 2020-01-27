@@ -150,7 +150,6 @@ class Client {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->_followRedirect);
-		curl_setopt($ch, CURLOPT_HEADER, true);
 
 		switch ($this->_method) {
 		case "GET":
