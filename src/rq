@@ -7,11 +7,13 @@ define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
 define('OPT_H', 'h');
+define('OPT_I', 'H');
 define('OPT_L', 'l');
 define('OPT_A', 'a');
 define('OPT_P', 'p');
 
 include __DIR__ . "/ApiRequester/Client.php";
+include __DIR__ . "/ApiRequester/ResultDto.php";
 
 $options = _processParams();
 if ($options[OPT_H]) {
@@ -20,14 +22,12 @@ if ($options[OPT_H]) {
 }
 
 $r = new helvete\ApiRequester\Client($options[FILE], $options[OPT_A]);
-$request = $r->setFollowRedirect(!$options[OPT_L])->request();
-$httpCode = key($request);
-$response = current($request);
-$key = "<-- [{$httpCode}]";
+$result = $r->setFollowRedirect(!$options[OPT_L])->request();
+$key = "<-- [{$result->getStatusCode()}]";
 $requestKey = "--> [{$r->getMethod()} {$r->getUrl()}]";
 $iterate = array(
 	$requestKey => $r->getReqStr(),
-	$key => $response,
+	$key => $result->getResponseBody(),
 );
 
 if ($options[OPT_P]) {
@@ -60,6 +60,12 @@ foreach ($iterate as $name => $data) {
 }
 $time += microtime(true);
 $time = number_format($time, 2);
+if ($options[OPT_I]) {
+    echo "\n--- [HEADERS]:";
+    foreach ($result->getHeaders() as $hName => $hVal) {
+        echo "\n\t" . strtoupper($hName) . ": {$hVal}";
+    }
+}
 echo "${embed}Bye! (Request duration: {$time}s)\n";
 
 /******************************************************************************/
@@ -75,6 +81,7 @@ function _processParams() {
 		OPT_X => false,
 		OPT_N => false,
 		OPT_H => false,
+		OPT_I => false,
 		OPT_L => false,
 		OPT_P => false,
 		OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
@@ -95,6 +102,10 @@ function _processParams() {
 		case '-h':
 		case '--help':
 			$provided[OPT_H] = true;
+			break;
+		case '-H':
+		case '--headers':
+			$provided[OPT_I] = true;
 			break;
 		case '-l':
 		case '--no-follow-redirect':
@@ -141,6 +152,8 @@ Usage:
 Parameters:
 	-h|--help
 		Print this help
+	-H|--headers
+		Print response headers
 	-n|--non-json
 		Script will not expect JSON response payload and will not attempt to
 		format it on standard out

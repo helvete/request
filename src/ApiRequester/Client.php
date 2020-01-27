@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.31';
+	const LIB_VERSION = '0.4';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -150,9 +150,11 @@ class Client {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->_followRedirect);
+		curl_setopt($ch, CURLOPT_HEADER, true);
 
 		switch ($this->_method) {
 		case "GET":
+		case "OPTIONS":
 			break;
 		case "POST":
 			curl_setopt($ch, CURLOPT_POST, true);
@@ -167,13 +169,12 @@ class Client {
 			// other methods not implemented yet, sorry
 			throw new \Exception('NIY');
 		}
-		$response = curl_exec($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		if ($response === false) {
+        $result = new ResultDto($ch);
+		if (!$result->isOk()) {
 			return $this->_handleError($ch);
 		}
 
-		return array($httpCode => $response);
+		return $result;
 	}
 
 
@@ -183,7 +184,7 @@ class Client {
 	 * @param  resource	$curlHandle
 	 * @return string
 	 */
-	protected function _handleError($curlHandle) {
+	public function _handleError($curlHandle) {
 		$curlError = array();
 		if (curl_error($curlHandle)) {
 			$curlError = array(
