@@ -64,7 +64,7 @@ $time = number_format($time, 2);
 if ($options[OPT_I]) {
 	echo "\n--- [HEADERS]:";
 	foreach ($result->getHeaders() as $hName => $hVal) {
-		echo "\n	" . strtoupper($hName) . ": {$hVal}";
+		echo "\n    " . strtoupper($hName) . ": {$hVal}";
 	}
 }
 echo "${embed}Bye! (Request duration: {$time}s)\n";
