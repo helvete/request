@@ -46,7 +46,8 @@ foreach ($iterate as $name => $data) {
 		echo $data;
 	} else {
 		if (empty($data)) {
-			$embed = "\"\"\n";
+			$embed = "\n";
+			echo '""';
 			continue;
 		}
 		print_r(
@@ -61,10 +62,10 @@ foreach ($iterate as $name => $data) {
 $time += microtime(true);
 $time = number_format($time, 2);
 if ($options[OPT_I]) {
-    echo "\n--- [HEADERS]:";
-    foreach ($result->getHeaders() as $hName => $hVal) {
-        echo "\n\t" . strtoupper($hName) . ": {$hVal}";
-    }
+	echo "\n--- [HEADERS]:";
+	foreach ($result->getHeaders() as $hName => $hVal) {
+		echo "\n	" . strtoupper($hName) . ": {$hVal}";
+	}
 }
 echo "${embed}Bye! (Request duration: {$time}s)\n";
 
