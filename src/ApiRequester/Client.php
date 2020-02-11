@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.4';
+	const LIB_VERSION = '0.41';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -168,36 +168,8 @@ class Client {
 			// other methods not implemented yet, sorry
 			throw new \Exception('NIY');
 		}
-        $result = new ResultDto($ch);
-		if (!$result->isOk()) {
-			return $this->_handleError($ch);
-		}
 
-		return $result;
-	}
-
-
-	/**
-	 * Handle request error
-	 *
-	 * @param  resource	$curlHandle
-	 * @return string
-	 */
-	public function _handleError($curlHandle) {
-		$curlError = array();
-		if (curl_error($curlHandle)) {
-			$curlError = array(
-				'curl error' => curl_error($curlHandle),
-				'error nr' => curl_errno($curlHandle),
-			);
-		}
-		$json = json_encode(array(
-			'result' => 'FAILURE',
-			'url' => $this->_url,
-			'Code' => curl_getinfo($curlHandle, CURLINFO_HTTP_CODE),
-		) + $curlError);
-
-		return array(666 => $json);
+		return new ResultDto($ch);
 	}
 
 
