@@ -7,10 +7,12 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.41';
+	const LIB_VERSION = '0.42';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
+
+	const BASE64_PATTERN = '%^[a-zA-Z0-9/+]*={0,2}$%';
 
 	/**
 	 * Request method
@@ -116,7 +118,7 @@ class Client {
 			// process data in options file
 			switch ($processing) {
 			case ('HEADERS'):
-				$this->_headers[] = $key;
+				$this->_headers[] = $this->handleBase64Auth($key);
 				break;
 			case ('REQUEST_STRING'):
 				$this->_requestString .= "{$line}";
@@ -212,5 +214,27 @@ class Client {
 	public function setFollowRedirect($followRedirect) {
 		$this->_followRedirect = (bool)$followRedirect;
 		return $this;
+	}
+
+
+	/**
+	 * Attempt to base64 basic auth string in a form `username:password`
+	 *
+	 * @param  string   $header
+	 * @return string
+	 */
+	protected function handleBase64Auth($header)
+	{
+		@list($hName, $hType, $hCred) = explode(' ', $header);
+		if (strtolower($hName) !== 'authorization:') {
+			return $header;
+		}
+		if (strtolower($hType) !== 'basic') {
+			return $header;
+		}
+		if (preg_match(static::BASE64_PATTERN, $hCred)) {
+			return $header;
+		}
+		return "{$hName} {$hType} " . base64_encode($hCred);
 	}
 }

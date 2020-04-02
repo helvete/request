@@ -148,7 +148,7 @@ Request remote APIs utility.
 	Library version: $libVer
 	Script version: $scriptVer
 Usage:
-	$self [-h|--help] [-n|--non-json] [-x|--exact-response]
+	$self [-h|--help] [-H|--headers] [-n|--non-json] [-x|--exact-response]
 		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
 Parameters:
 	-h|--help
@@ -159,13 +159,13 @@ Parameters:
 		Script will not expect JSON response payload and will not attempt to
 		format it on standard out
 	-x|--exact-response
-		Response will not be formated. Only the actual response is printed.
+		Response will not be formatted. Only the actual response is printed.
 		Useful for commands chaining
 	-l|--no-follow-redirects
 		Default behaviour is to follow any location redirects. Provide this flag
 		in order for the client not to follow redirects
 	-a|--no-user-agent
-		User-agent is being added by default. Provide this param to omit it
+		User-agent header is being added by default. Provide this flag to omit it
 	-p|--response-only
 		Print only response, skip request. Useful for file uploads, etc.
 	<options-file>

@@ -7,6 +7,8 @@ Its key feature is, that connection settings lie in an easily editable file, tha
 
 JSON-centric by design, able to work w/ anything though
 
+auto-base64 encode `Authorization: Basic user:password` headers
+
 ## Options file structure ##
 Use an example options file as a sample.
 
@@ -16,6 +18,7 @@ METHOD
 HEADERS
 	Accept-Charset: utf8
 	Content-Type: application/json
+    Authorization: Basic user:password
 URL
 	#http://example.com/?param1=A&param2=B
 
@@ -39,11 +42,13 @@ REQUEST_STRING
 
 ```
 Usage:
-	./rq [-h|--help] [-n|--non-json] [-x|--exact-response]
+	./rq [-h|--help] [-H|--headers] [-n|--non-json] [-x|--exact-response]
 		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
 Parameters:
 	-h|--help
 		Print this help
+	-H|--headers
+		Print response headers
 	-n|--non-json
 		Script will not expect JSON response payload and will not attempt to
 		format it on standard out
