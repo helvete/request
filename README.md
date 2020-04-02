@@ -18,7 +18,7 @@ METHOD
 HEADERS
 	Accept-Charset: utf8
 	Content-Type: application/json
-    Authorization: Basic user:password
+	Authorization: Basic user:password
 URL
 	#http://example.com/?param1=A&param2=B
 
