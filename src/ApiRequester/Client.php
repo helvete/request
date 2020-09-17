@@ -154,8 +154,6 @@ class Client {
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->_followRedirect);
 
 		switch ($this->_method) {
-		case "GET":
-			break;
 		case "POST":
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
@@ -166,9 +164,9 @@ class Client {
 		case "OPTIONS":
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			break;
+		case "GET":
 		default:
-			// other methods not implemented yet, sorry
-			throw new \Exception('NIY');
+			break;
 		}
 
 		return new ResultDto($ch);
