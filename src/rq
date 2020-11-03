@@ -64,7 +64,7 @@ $time = number_format($time, 2);
 if ($options[OPT_I]) {
 	echo "\n--- [HEADERS]:";
 	foreach ($result->getHeaders() as $hName => $hVal) {
-		echo "\n    " . strtoupper($hName) . ": {$hVal}";
+		echo "\n	" . strtoupper($hName) . ": {$hVal}";
 	}
 }
 echo "${embed}Bye! (Request duration: {$time}s)\n";
@@ -78,36 +78,36 @@ echo "${embed}Bye! (Request duration: {$time}s)\n";
  */
 function _processParams() {
 	global $argv;
-    $options = getopt(_getGetoptCode(), [], $lastParamId);
-    array_walk($options, function(&$item) { $item = true; });
-    $semifinished = array_slice($argv, $lastParamId);
-    $options[FILE] = array_shift($semifinished);
+	$options = getopt(_getGetoptCode(), [], $lastParamId);
+	array_walk($options, function(&$item) { $item = true; });
+	$semifinished = array_slice($argv, $lastParamId);
+	$options[FILE] = array_shift($semifinished);
 
-    return array_merge(
-        [
-		    OPT_X => false,
-		    OPT_N => false,
-		    OPT_H => false,
-		    OPT_I => false,
-		    OPT_L => false,
-		    OPT_P => false,
-		    OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
-        ],
-        $options
+	return array_merge(
+		[
+			OPT_X => false,
+			OPT_N => false,
+			OPT_H => false,
+			OPT_I => false,
+			OPT_L => false,
+			OPT_P => false,
+			OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
+		],
+		$options
 	);
 }
 
 
 function _getGetoptCode() {
-    return implode(
-        array_values(
-            array_filter(
-                get_defined_constants(true)['user'],
-                function($k) { return preg_match('/^OPT_[A-Z]{1}$/', $k); },
-                ARRAY_FILTER_USE_KEY
-            )
-        )
-    );
+	return implode(
+		array_values(
+			array_filter(
+				get_defined_constants(true)['user'],
+				function($k) { return preg_match('/^OPT_[A-Z]{1}$/', $k); },
+				ARRAY_FILTER_USE_KEY
+			)
+		)
+	);
 }
 
 
