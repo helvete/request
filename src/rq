@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.33');
+define('SCRIPT_VERSION', '0.34');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -16,7 +16,7 @@ include __DIR__ . "/ApiRequester/Client.php";
 include __DIR__ . "/ApiRequester/ResultDto.php";
 
 $options = _processParams();
-if ($options[OPT_H]) {
+if ($options[OPT_H] || empty($options[FILE])) {
 	_printHelp();
 	exit(0);
 }
@@ -149,7 +149,8 @@ Request remote APIs utility.
 	Script version: $scriptVer
 Usage:
 	$self [-h|--help] [-H|--headers] [-n|--non-json] [-x|--exact-response]
-		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
+		[-l|--no-follow-redirect] [-a|--no-user-agent] [-p|--response-only]
+        <options file>
 Parameters:
 	-h|--help
 		Print this help
