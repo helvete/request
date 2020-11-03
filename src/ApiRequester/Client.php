@@ -7,12 +7,18 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.42';
+	const LIB_VERSION = '0.44';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
 
 	const BASE64_PATTERN = '%^[a-zA-Z0-9/+]*={0,2}$%';
+
+	const METHOD_GET = "GET";
+	const METHOD_POST = "POST";
+	const METHOD_PUT = "PUT";
+	const METHOD_DELETE = "DELETE";
+	const METHOD_OPTIONS = "OPTIONS";
 
 	/**
 	 * Request method
@@ -56,9 +62,9 @@ class Client {
 
 	/**
 	 * Set user agent header
-	 *  provide self::UA_DEFAULT for a default one
+	 *	provide self::UA_DEFAULT for a default one
 	 *
-	 * @param  string   $agent
+	 * @param  string	$agent
 	 * @return void
 	 */
 	public function setUserAgent($agent = null) {
@@ -117,15 +123,15 @@ class Client {
 			}
 			// process data in options file
 			switch ($processing) {
-			case ('HEADERS'):
+			case 'HEADERS':
 				$this->_headers[] = $this->handleBase64Auth($key);
 				break;
-			case ('REQUEST_STRING'):
+			case 'REQUEST_STRING':
 				$this->_requestString .= "{$line}";
 				break;
-			case ('METHOD'):
+			case 'METHOD':
 				$key = strtoupper($key);
-			case ('URL'):
+			case 'URL':
 				$propertyName = "_" . strtolower($processing);
 				$this->$propertyName = $key;
 				break;
@@ -154,17 +160,17 @@ class Client {
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->_followRedirect);
 
 		switch ($this->_method) {
-		case "POST":
+		case self::METHOD_POST:
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
 			break;
-		case "PUT":
-		case "DELETE":
+		case self::METHOD_PUT:
+		case self::METHOD_DELETE:
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
-		case "OPTIONS":
+		case self::METHOD_OPTIONS:
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			break;
-		case "GET":
+		case self::METHOD_GET:
 		default:
 			break;
 		}
@@ -199,14 +205,14 @@ class Client {
 	 * @return string
 	 */
 	public function getMethod() {
-		return $this->_method;
+		return $this->_method ?: self::METHOD_GET;
 	}
 
 
 	/**
 	 * Change redirect flag status
 	 *
-	 * @param  bool	$followRedirect
+	 * @param  bool $followRedirect
 	 * @return void
 	 */
 	public function setFollowRedirect($followRedirect) {
@@ -218,7 +224,7 @@ class Client {
 	/**
 	 * Attempt to base64 basic auth string in a form `username:password`
 	 *
-	 * @param  string   $header
+	 * @param  string	$header
 	 * @return string
 	 */
 	protected function handleBase64Auth($header)
