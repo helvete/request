@@ -42,31 +42,30 @@ REQUEST_STRING
 
 ```
 Usage:
-	./rq [-h|--help] [-H|--headers] [-n|--non-json] [-x|--exact-response]
-		[-l|--no-follow-redirect] [-a|--no-user-agent] <options file>
+	./rq [-h] [-H] [-n] [-x] [-l] [-a] [-p] <options file>
 Parameters:
-	-h|--help
+	-h
 		Print this help
-	-H|--headers
+	-H
 		Print response headers
-	-n|--non-json
+	-n
 		Script will not expect JSON response payload and will not attempt to
 		format it on standard out
-	-x|--exact-response
+	-x
 		Response will not be formatted. Only the actual response is printed.
 		Useful for commands chaining
-	-l|--no-follow-redirects
+	-l
 		Default behaviour is to follow any location redirects. Provide this flag
 		in order for the client not to follow redirects
-	-a|--no-user-agent
+	-a
 		User-agent header is being added by default. Provide this flag to omit it
-	-p|--response-only
+	-p
 		Print only response, skip request. Useful for file uploads, etc.
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
-Note:
-	Short versions of -x and -n parameters can be combined like -xn or -nx.
 ```
+* all parameters can be combined
+* long versions no longer supported
 
 ## Data visualisation ##
 
@@ -101,12 +100,10 @@ Bye! (Request duration: 0.26s)
 ## Possible improvements aka TODOs ##
 
 * Make possible to auto-calculate request string size and include Content-length header
-* Better getopt handling!!
 * Additional HTTP methods
 * HTTP Response codes differentiated by colours
 * Optional payload trimming(JSON)
 * Allow request string to be provided via STDIN
 * Make possible to define hostname and partial URI independent - ie. to test the same feature at various hosts
-* Headers-only and headers-anong-body modes (Useful for OPTIONS, debugging, ...)
 * Ability to supply some headers from commandline (auth, user-agent, ...)
 * Add new script that would offer chain calls to various endpoints
