@@ -66,6 +66,7 @@ Parameters:
 ```
 * all parameters can be combined
 * long versions no longer supported
+* request payload can be provided via stdin; data provided via stdin take precedence over `REQUEST_STRING` block from within the options file
 
 ## Data visualisation ##
 
@@ -103,7 +104,6 @@ Bye! (Request duration: 0.26s)
 * Additional HTTP methods
 * HTTP Response codes differentiated by colours
 * Optional payload trimming(JSON)
-* Allow request string to be provided via STDIN
 * Make possible to define hostname and partial URI independent - ie. to test the same feature at various hosts
 * Ability to supply some headers from commandline (auth, user-agent, ...)
 * Add new script that would offer chain calls to various endpoints

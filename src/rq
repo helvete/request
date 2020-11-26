@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.35');
+define('SCRIPT_VERSION', '0.36');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -21,7 +21,7 @@ if ($options[OPT_H] || empty($options[FILE])) {
 	exit(0);
 }
 
-$r = new helvete\ApiRequester\Client($options[FILE], $options[OPT_A]);
+$r = new helvete\ApiRequester\Client($options[FILE], $options[OPT_A], _getStdin());
 $result = $r->setFollowRedirect(!$options[OPT_L])->request();
 $key = "<-- [{$result->getStatusCode()}]";
 $requestKey = "--> [{$r->getMethod()} {$r->getUrl()}]";
@@ -108,6 +108,14 @@ function _getGetoptCode() {
 			)
 		)
 	);
+}
+
+
+function _getStdin() {
+	$fhandle = fopen("php://stdin", 'r');
+	return ftell($fhandle) === false
+		? false
+		: stream_get_contents($fhandle);
 }
 
 

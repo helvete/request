@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.44';
+	const LIB_VERSION = '0.45';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -46,15 +46,25 @@ class Client {
 	protected $_followRedirect = true;
 
 	/**
+	 * Data from stdin
+	 */
+	protected $_stdinData = false;
+
+	/**
 	 * Class construct
 	 */
-	public function __construct($optionsFile = null, $ua = self::UA_DEFAULT) {
+	public function __construct(
+		$optionsFile,
+		$ua = self::UA_DEFAULT,
+		$stdin = false
+	) {
 		if (empty($optionsFile)) {
 			throw new \Exception('Options file name not supplied');
 		}
 		if (!file_exists($optionsFile)) {
 			throw new \Exception('Options file does not exist');
 		}
+		$this->_stdinData = $stdin;
 		$this->_parseOptions($optionsFile);
 		$this->setUserAgent($ua);
 	}
@@ -118,7 +128,9 @@ class Client {
 
 				continue;
 			}
-			if ($processing === 'REQUEST_STRING' && $this->_method === 'GET') {
+			if ($processing === 'REQUEST_STRING'
+				&& ($this->_method === 'GET' || $this->_stdinData)
+			) {
 				continue;
 			}
 			// process data in options file
@@ -162,11 +174,11 @@ class Client {
 		switch ($this->_method) {
 		case self::METHOD_POST:
 			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getReqStr());
 			break;
 		case self::METHOD_PUT:
 		case self::METHOD_DELETE:
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_requestString);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getReqStr());
 		case self::METHOD_OPTIONS:
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			break;
@@ -185,7 +197,7 @@ class Client {
 	 * @return string
 	 */
 	public function getReqStr() {
-		return $this->_requestString;
+		return $this->_stdinData ?: $this->_requestString;
 	}
 
 
