@@ -112,10 +112,10 @@ function _getGetoptCode() {
 
 
 function _getStdin() {
-	$fhandle = fopen("php://stdin", 'r');
-	return ftell($fhandle) === false
-		? false
-		: stream_get_contents($fhandle);
+    stream_set_blocking(STDIN, 0);
+    return ftell(STDIN) === false
+        ? false
+        : stream_get_contents(STDIN);
 }
 
 
