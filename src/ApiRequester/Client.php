@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.45';
+	const LIB_VERSION = '0.46';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -218,6 +218,16 @@ class Client {
 	 */
 	public function getMethod() {
 		return $this->_method ?: self::METHOD_GET;
+	}
+
+
+	/**
+	 * Get request mthod for logging purposes
+	 *
+	 * @return string
+	 */
+	public function getHeaders() {
+		return $this->_headers;
 	}
 
 
