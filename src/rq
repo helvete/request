@@ -2,7 +2,7 @@
 <?php
 $time = -microtime(true);
 
-define('SCRIPT_VERSION', '0.37');
+define('SCRIPT_VERSION', '0.38');
 define('FILE', 'C1cHmKNQr1f7gB2YXr7w');
 define('OPT_X', 'x');
 define('OPT_N', 'n');
@@ -11,6 +11,7 @@ define('OPT_I', 'H');
 define('OPT_L', 'l');
 define('OPT_A', 'a');
 define('OPT_P', 'p');
+define('OPT_Q', 'q');
 
 include __DIR__ . "/ApiRequester/Client.php";
 include __DIR__ . "/ApiRequester/ResultDto.php";
@@ -23,6 +24,11 @@ if ($options[OPT_H] || empty($options[FILE])) {
 
 $r = new helvete\ApiRequester\Client($options[FILE], $options[OPT_A], _getStdin());
 $result = $r->setFollowRedirect(!$options[OPT_L])->request();
+
+if ($options[OPT_Q]) {
+	exit((int)($result->getStatusCode() != 200));
+}
+
 $key = "<-- [{$result->getStatusCode()}]";
 $requestKey = "--> [{$r->getMethod()} {$r->getUrl()}]";
 $iterate = array(
@@ -100,6 +106,7 @@ function _processParams() {
 			OPT_I => false,
 			OPT_L => false,
 			OPT_P => false,
+			OPT_Q => false,
 			OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
 		],
 		$options
@@ -143,7 +150,7 @@ Request remote APIs utility.
 	Library version: $libVer
 	Script version: $scriptVer
 Usage:
-	$self [-h] [-H] [-n] [-x] [-l] [-a] [-p] <options file>
+	$self [-h] [-H] [-n] [-x] [-l] [-a] [-p] [-q] <options file>
 Parameters:
 	-h
 		Print this help
@@ -162,6 +169,8 @@ Parameters:
 		User-agent header is being added by default. Provide this flag to omit it
 	-p
 		Print only response, skip request. Useful for file uploads, etc.
+	-q
+		Do not print anything, overrides all params but -h, -l and -a
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 
