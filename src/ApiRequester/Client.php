@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.46';
+	const LIB_VERSION = '0.47';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -78,7 +78,7 @@ class Client {
 	 * @return void
 	 */
 	public function setUserAgent($agent = null) {
-		if (is_null($agent)) {
+		if (is_null($agent) || $agent === true) {
 			return;
 		}
 		$s = '%s (compatible; ApiRequester/%s) github.com/helvete/request';
