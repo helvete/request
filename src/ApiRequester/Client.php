@@ -7,7 +7,7 @@ namespace helvete\ApiRequester;
  */
 class Client {
 
-	const LIB_VERSION = '0.47';
+	const LIB_VERSION = '0.48';
 
 	const UA_COMP = 'Mozilla/5.0';
 	const UA_DEFAULT = 'DEFAULT';
@@ -19,6 +19,7 @@ class Client {
 	const METHOD_PUT = "PUT";
 	const METHOD_DELETE = "DELETE";
 	const METHOD_OPTIONS = "OPTIONS";
+	const METHOD_TRACE = "TRACE";
 
 	/**
 	 * Request method
@@ -180,6 +181,7 @@ class Client {
 		case self::METHOD_DELETE:
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getReqStr());
 		case self::METHOD_OPTIONS:
+		case self::METHOD_TRACE:
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_method);
 			break;
 		case self::METHOD_GET:
