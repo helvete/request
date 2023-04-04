@@ -26,17 +26,17 @@ class ResultDto {
 		return $this->statusCode;
 	}
 	public function getResponseBody($autoInflate = false) {
-        if (!$autoInflate || !array_key_exists('content-encoding', $this->headers)) {
-		    return $this->responseBody;
-        }
-        switch ($this->headers['content-encoding']) {
-        case 'gzip':
-            return gzdecode($this->responseBody);
-        case 'deflate':
-            return gzuncompress($this->responseBody);
-        default:
-            return $this->responseBody;
-        }
+		if (!$autoInflate || !array_key_exists('content-encoding', $this->headers)) {
+			return $this->responseBody;
+		}
+		switch ($this->headers['content-encoding']) {
+		case 'gzip':
+			return gzdecode($this->responseBody);
+		case 'deflate':
+			return gzuncompress($this->responseBody);
+		default:
+			return $this->responseBody;
+		}
 	}
 	public function getHeaders() {
 		return $this->headers;

@@ -108,7 +108,7 @@ function _processParams() {
 			OPT_L => false,
 			OPT_P => false,
 			OPT_Q => false,
-            OPT_F => false,
+			OPT_F => false,
 			OPT_A => helvete\ApiRequester\Client::UA_DEFAULT,
 		],
 		$options
@@ -175,7 +175,7 @@ Parameters:
 		Do not print anything, overrides all params but -h, -l and -a
 	-f
 		Autoinflate response payload compressed by `gzip` or `deflate` based
-        on Content-Encoding response header
+		on Content-Encoding response header
 	<options-file>
 		Provided location of options file. See ./post-request-example for clues
 
