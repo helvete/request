@@ -38,7 +38,7 @@ $iterate = array(
 );
 
 if ($options[OPT_P]) {
-	$iterate[$requestKey] = (unset)$requestKey;
+	$iterate[$requestKey] = null;
 }
 
 if ($options[OPT_X]) {
